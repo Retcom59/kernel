@@ -1,1 +1,1 @@
-# Kernel Dynamics site codes.
+# Kernel Dynamics

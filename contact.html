@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- Basic Page Needs
+    ================================================== -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Contact | Kernel Dynamics</title>
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+
+    <!-- Mobile Specific Metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <!-- Favicon
+    ================================================== -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon.png">
+
+    <!-- Stylesheets
+    ================================================== -->
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+
+    <header id="masthead" class="site-header">
+        <nav id="primary-navigation" class="site-navigation">
+            <div class="container">
+
+                <div class="navbar-header">
+                    <a class="site-title"><span>Kernel</span>Dynamics</a>
+
+                </div><!-- /.navbar-header -->
+
+                <div class="collapse navbar-collapse" id="agency-navbar-collapse">
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="active"><a href="index.html" >Home</a></li>                  
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>   
+        </nav><!-- /.site-navigation -->
+    </header><!-- /#mastheaed -->
+
+    <div id="hero" class="hero overlay subpage-hero contact-hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Contact</h1>
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active">Contact</li>
+                </ol>
+            </div><!-- /.hero-text -->
+        </div><!-- /.hero-content -->
+    </div><!-- /.hero -->
+
+    <main id="main" class="site-main">
+
+        <section class="site-section subpage-site-section section-contact-us">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-7">
+                        <h2>Send a message</h2>
+                        <form class="recaptchaForm" method="POST">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                      <label for="name">Name:</label>
+                                      <input type="text" class="form-control" id="name">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                      <label for="email">E-mail:</label>
+                                      <input type="email" class="form-control" id="email">
+                                      <br/>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="message">Subject:</label>
+                              <input class="form-control" id="subject"></input>
+                            </div>
+                            <div class="form-group">
+                              <label for="message">Message:</label>
+                              <textarea class="form-control form-control-comment" id="message"></textarea>
+                            </div>
+                           
+                            <div class="text-center">
+                                
+                                <button class="btn btn-green col-md-offset-2 " >Contact us</button>
+                                <div class="g-recaptcha" data-sitekey="6LfR8FMiAAAAANq5OS1Evz6HmIGPRAi_gZfgeZti">
+                                
+                            </div>
+                            </div>
+                        </form>
+                    <div class="status">
+<?php
+    if(isset($_POST['submit'])) 
+    {
+    $name = $POST['name'];
+    $email = $POST['email'];
+    $subject = $POST['subject'];
+    $message = $POST['message'];
+
+
+    $email_from = 'info@kerneldynamics.com';
+    $email_subject = "New Form Sumission:";
+    $email_body = "Name: $name.\n".
+    "E-mail: $email.\n".
+    "Subject: $subject.\n".
+    "Message: $message.\n";
+
+
+    $to_email = "info@kerneldynamics.com";
+    $headers = "From: $email_from \r\n";
+    $headers = "Reply-to: $email \r\n";
+
+
+
+
+
+    $secretKey = "6LfR8FMiAAAAAHFIvnlVq0G4rBI1s5WeUJmkeuyu";
+    $responseKey = $_POST['g-recaptcha-response'];
+    $UserIP = $_SERVER['REOMTE_ADDR'];
+    $url = " https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$responseKey&remoteip=$UserIP";
+
+    $response = file_get_contents($url);
+    $response = json_decode($response);
+
+    if($response = "success")
+    {
+        mail($to_email,$email_subject,$email_body,$headers);
+        echo "message send successfully";
+    }
+    else
+    {
+        echo "Invalid Captcha, please try again";
+    }
+
+            
+    }
+    ?>
+                    </div>
+
+
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="contact-info">
+                            <h2>Contact information</h2>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h3>Address</h3>
+                                    <ul class="list-unstyled">
+                                        <li>Sarıyer / Istanbul</li>
+                                        <li>Kernel Dynamics </li>
+                                    </ul>
+                                   <!--<h3>E-mail</h3> /.contact-info -->
+                                    <a href="mailto:*" target="_blank"></a>
+                                    <h3>Phone</h3>
+                                    <a href="tel:*" target="_blank"></a>
+                                    <h3>Fax</h3>
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div><!-- /.contact-info -->
+                    </div>
+                </div>
+            </div>
+            
+        </section><!-- /.section-contact-us -->
+       
+        <!-- <section id="map" class="section-map"></section>--><!-- /.section-map -->
+
+    </main><!-- /#main -->
+
+    <footer id="colophon" class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-4 col-xs-6">
+                    <a class="site-title"><span>Kernel</span>Dynamics</a>
+                    <p>We're a high-tech company focused on innovation and fully autonomous solutions.</p>
+                    <p>We measure our success by how excited people are by our goals.</p>
+                </div>
+                <div class="col-lg-offset-4 col-md-3 col-sm-4 col-md-offset-2 col-sm-offset-0 col-xs-6 ">
+                    <h3>Keep in touch</h3>
+                    <ul class="list-unstyled contact-links">
+                      <!-- /#main  <li><i class="fa fa-envelope" aria-hidden="true"></i><a href="mailto:info@kerneldynamics.com"><a href="contact.html">Mail</a></a></li>-->
+                       <!-- /#main  <li><i class="fa fa-phone" aria-hidden="true"></i><a href="tel:+37400800000">+374 (00) 80 00 00 </a></li>--> 
+                      <!-- /#main  <li><i class="fa fa-fax" aria-hidden="true"></i><a href="+37400900000">+374 (00) 90 00 00</a></li>--> 
+                        <li><i class="fa fa-map-marker" aria-hidden="true"></i><p>Sarıyer / İstanbul</p></li>
+                    </ul>
+                </div>
+                <div class="clearfix visible-xs"></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                    <h3>Featured links</h3>
+                    <ul class="list-unstyled">
+                        <li class="active"><a href="index.html">Home</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                       
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="social-links">
+                            <a class="twitter-bg" href="#"><i class="fa fa-twitter"></i></a>
+                            <a class="facebook-bg" href="#"><i class="fa fa-facebook"></i></a>
+                            <a class="pinterest" href="#"><i class="fa fa-pinterest"></i></a>
+                            <a class="linkedin-bg" href="#"><i class="fa fa-linkedin"></i></a>
+                        </div><!-- /.social-links -->
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="text-right">
+                            <p>&copy; Kernel Dynamics</p>
+                            <p>All Rights Reserved</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.copyright -->
+    </footer><!-- /#footer -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/bootstrap-select.min.js"></script>
+    <script src="assets/js/jquery.slicknav.min.js"></script>
+    <script src="assets/js/jquery.countTo.min.js"></script>
+    <script src="assets/js/jquery.shuffle.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
+    <script src="assets/js/script.js"></script>
+  
+
+
+
+</body>
+</html>
